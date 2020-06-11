@@ -3,22 +3,22 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation.xml"
-    app:startDestination="@id/nav_pie_options">
+    app:startDestination="@id/pieOptions">
 
     <fragment
-        android:id="@+id/nav_pie_options"
+        android:id="@+id/pieOptions"
         android:name="com.owl93.pieviewdemo.PieOptionsFragment"
         android:label="PieOptions"
         tools:layout="@layout/fragment_pie_options" />
 
     <fragment
-        android:id="@+id/nav_pie_legend"
+        android:id="@+id/pieLegend"
         android:name="com.owl93.pieviewdemo.LegendOptionsFragment"
         android:label="LegendOptions"
         tools:layout="@layout/fragment_legend_options" />
 
     <fragment
-        android:id="@+id/nav_pie_components"
+        android:id="@+id/pieComponents"
         android:name="com.owl93.pieviewdemo.ComponentFragment"
         android:label="Components"
         tools:layout="@layout/fragment_component_options" />

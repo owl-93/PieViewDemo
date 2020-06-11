@@ -13,6 +13,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.owl93.pieview.PieView
+import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
 
 enum class Page {
@@ -34,9 +35,9 @@ class MainActivity : AppCompatActivity() {
         val navView : BottomNavigationView = findViewById(R.id.nav_view)
         val navController = findNavController(R.id.nav_host_fragment)
         navView.setupWithNavController(navController)
-//
-//        pie_view.legend = pie_view_legend
-//        pie_view.components = sampleComponents(this)
+
+        pie_view.legend = pie_view_legend
+        pie_view.components = sampleComponents(this)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

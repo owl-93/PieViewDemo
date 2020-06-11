@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/container"
     android:orientation="vertical"
     android:layout_width="match_parent"
@@ -25,6 +26,7 @@
         app:trackColor="#FFFFFF"
         app:trackWidth="40dp" />
 
+
     <com.owl93.pieview.PieViewLegend
         android:id="@+id/pie_view_legend"
         android:layout_width="wrap_content"
@@ -34,6 +36,10 @@
         android:padding="20dp"
         app:drawLegendLabel="true"
         app:drawLegendValue="true"
+        app:layout_constraintBottom_toBottomOf="@+id/pie_view"
+        app:layout_constraintEnd_toEndOf="@+id/pie_view"
+        app:layout_constraintStart_toStartOf="@+id/pie_view"
+        app:layout_constraintTop_toTopOf="@+id/pie_view"
         app:legendOrder="shapeFirst"
         app:legendOrientation="vertical"
         app:legendShape="square"
@@ -44,7 +50,6 @@
         app:shapeSize="20dp"
         app:verticalSpacing="10dp" />
 
-
     <fragment
         android:id="@+id/nav_host_fragment"
         android:name="androidx.navigation.fragment.NavHostFragment"
@@ -54,17 +59,17 @@
         app:layout_constraintBottom_toTopOf="@+id/nav_view"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/pie_view"
         app:navGraph="@navigation/mobile_navigation" />
 
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/nav_view"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:menu="@menu/bottom_nav" />
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
