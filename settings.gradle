@@ -1,0 +1,3 @@
+include ':app', 'PieView'
+project(':PieView').projectDir = new File("../PieView")
+rootProject.name = "Pie View Demo"
