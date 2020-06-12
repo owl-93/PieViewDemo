@@ -12,4 +12,17 @@
     <color name="green">#00E676</color>
     <color name="light_green">#76FF03</color>
     <color name="blue">#00B0FF</color>
+
+    <color name="color0">#A431F6</color>
+    <color name="color1">#03DAC5</color>
+    <color name="color2">#0281E6</color>
+    <color name="color3">#d50000</color>
+    <color name="color4">#c51162</color>
+    <color name="color5">#00c853</color>
+    <color name="color6">#aeea00</color>
+    <color name="color7">#ffab00</color>
+    <color name="color8">#ff6d00</color>
+    <color name="color9">#dd2c00</color>
+    <color name="color10">#000000</color>
+    <color name="color11">#FFFFFF</color>
 </resources>

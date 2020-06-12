@@ -1,9 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.graphics.Paint.Cap"/>
+        <variable
+            name="vm"
+            type="com.owl93.pieviewdemo.MainViewModel" />
+
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
         tools:context=".PieOptionsFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -13,6 +23,8 @@
             style="@style/OptionsTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="0dp"
+            android:layout_marginTop="0dp"
             android:text="@string/pie_options_title"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -32,6 +44,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
+            android:max="400"
+            android:progress="@{vm.strokeWidth.intValue()}"
             app:layout_constraintTop_toBottomOf="@+id/stroke_width"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
@@ -42,37 +56,84 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/track_options"
+            app:layout_constraintBottom_toBottomOf="@+id/draw_track_switch"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/stroke_width_seekbar" />
+            app:layout_constraintTop_toTopOf="@+id/draw_track_switch" />
+
+        <TextView
+            android:id="@+id/track_width_label"
+            style="@style/OptionsLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/track_width_label"
+            app:layout_constraintBottom_toBottomOf="@+id/track_width_seekbar"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/track_width_seekbar" />
 
         <SeekBar
             android:id="@+id/track_width_seekbar"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            app:layout_constraintBottom_toBottomOf="@+id/draw_track_switch"
-            app:layout_constraintEnd_toStartOf="@+id/draw_track_switch"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/draw_track_switch" />
+            android:max="500"
+            android:progress="@{vm.trackWidth.intValue()}"
+            app:layout_constraintEnd_toStartOf="@+id/track_color_button"
+            app:layout_constraintStart_toEndOf="@+id/track_width_label"
+            app:layout_constraintTop_toBottomOf="@+id/draw_track_switch" />
+
 
         <Switch
             android:id="@+id/draw_track_switch"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            app:layout_constraintEnd_toStartOf="@+id/track_color_button"
-            app:layout_constraintTop_toBottomOf="@+id/track_width_title" />
+            android:layout_marginTop="20dp"
+            android:checked="@{vm.drawTrack}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/stroke_width_seekbar" />
 
         <ImageButton
             android:id="@+id/track_color_button"
             android:layout_width="36dp"
             android:layout_height="36dp"
             android:layout_margin="10dp"
-            android:background="@drawable/palette_item"
-            app:layout_constraintBottom_toBottomOf="@+id/draw_track_switch"
+            android:background="@android:color/transparent"
+            android:src="@drawable/palette_item"
+            app:layout_constraintBottom_toBottomOf="@+id/track_alpha_seekbar"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/draw_track_switch" />
+            app:layout_constraintTop_toTopOf="@+id/track_width_seekbar" />
 
+        <TextView
+            android:id="@+id/track_alpha_label"
+            style="@style/OptionsLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/track_alpha_label"
+            app:layout_constraintBottom_toBottomOf="@+id/track_alpha_seekbar"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/track_alpha_seekbar" />
+
+        <SeekBar
+            android:id="@+id/track_alpha_seekbar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:max="255"
+            android:progress="@{vm.trackAlpha.intValue()}"
+            app:layout_constraintEnd_toStartOf="@+id/track_alpha_value"
+            app:layout_constraintStart_toEndOf="@+id/track_alpha_label"
+            app:layout_constraintTop_toBottomOf="@+id/track_width_seekbar" />
+
+        <TextView
+            android:id="@+id/track_alpha_value"
+            style="@style/OptionsLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{vm.trackAlpha.intValue()}"
+            android:minEms="3"
+            app:layout_constraintBottom_toBottomOf="@+id/track_alpha_seekbar"
+            app:layout_constraintEnd_toStartOf="@+id/track_color_button"
+            app:layout_constraintTop_toTopOf="@+id/track_alpha_seekbar" />
 
         <TextView
             android:id="@+id/spacing_title"
@@ -80,27 +141,39 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/component_spacing"
+            app:layout_constraintBottom_toBottomOf="@+id/draw_spacing_switch"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/track_width_seekbar" />
+            app:layout_constraintTop_toTopOf="@+id/draw_spacing_switch" />
 
         <SeekBar
             android:id="@+id/spacing_size_seekbar"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:max="20"
-            app:layout_constraintBottom_toBottomOf="@+id/draw_spacing_switch"
-            app:layout_constraintEnd_toStartOf="@+id/draw_spacing_switch"
+            android:max="35"
+            android:progress="@{vm.dividerSize}"
+            app:layout_constraintEnd_toStartOf="@+id/spacing_value"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/draw_spacing_switch" />
+            app:layout_constraintTop_toBottomOf="@+id/draw_spacing_switch" />
 
+        <TextView
+            android:id="@+id/spacing_value"
+            style="@style/OptionsLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minEms="3"
+            android:text="@{vm.dividerSize.toString()}"
+            app:layout_constraintBottom_toBottomOf="@+id/spacing_size_seekbar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/spacing_size_seekbar" />
         <Switch
             android:id="@+id/draw_spacing_switch"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
+            android:checked="@{vm.dividersEnabled}"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/spacing_title" />
+            app:layout_constraintTop_toBottomOf="@+id/track_alpha_seekbar" />
 
         <TextView
             android:id="@+id/starting_angle_title"
@@ -117,9 +190,21 @@
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:max="359"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:progress="@{vm.startingAngle}"
+            app:layout_constraintEnd_toStartOf="@+id/starting_angle_label"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/starting_angle_title" />
+
+        <TextView
+            android:id="@+id/starting_angle_label"
+            style="@style/OptionsLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minEms="3"
+            android:text="@{vm.startingAngle.toString()}"
+            app:layout_constraintBottom_toBottomOf="@+id/starting_angle_seekbar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/starting_angle_seekbar" />
 
 
         <TextView
@@ -131,13 +216,30 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/starting_angle_seekbar" />
 
-        <Spinner
-            android:id="@+id/stroke_end_spinner"
+        <RadioGroup
+            android:id="@+id/stroke_end_radiogroup"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
+            android:orientation="horizontal"
+            android:layout_marginStart="10dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/stroke_end_title" />
+            app:layout_constraintTop_toBottomOf="@+id/stroke_end_title">
+
+            <RadioButton
+                android:id="@+id/stroke_end_round"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:text="@string/rounded" />
+
+            <RadioButton
+                android:id="@+id/stroke_end_squared"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/squared" />
+        </RadioGroup>
+
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
